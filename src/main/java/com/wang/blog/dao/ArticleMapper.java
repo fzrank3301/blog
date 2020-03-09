@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper {
 
-      ArticleEntity getArticleById(@Param("id") Integer id);
+      public  ArticleEntity getArticleById(@Param("id") Integer id);
 
-      List<ArticleEntity>  getAllArticle();
+      public  List<ArticleEntity>  getAllArticle();
 
 }

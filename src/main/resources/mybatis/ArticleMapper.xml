@@ -7,7 +7,7 @@
         select  *  from article  where id = #{id}
     </select>
 
-    <select id="getAllArticle" resultType="ArrayList">
+    <select id="getAllArticle" resultType="com.wang.blog.entity.ArticleEntity">
         select  * from  article
     </select>
 

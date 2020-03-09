@@ -5,6 +5,8 @@ import com.wang.blog.entity.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleService {
 
@@ -18,4 +20,8 @@ public class ArticleService {
     }
 
 
+    public List<ArticleEntity> getAll() {
+        List<ArticleEntity> allArticle = articleMapper.getAllArticle();
+        return  allArticle;
+    }
 }
