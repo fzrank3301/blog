@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("article/")
 public class ArticleController {
 
     @Resource
     private ArticleService articleService;
 
+    //按id查找文章
     @GetMapping("/getacticlebyid")
     public ArticleEntity getArticleById(@RequestParam(value = "id",defaultValue = "1")Integer id){
         ArticleEntity acticleEntity = null;
@@ -27,7 +29,7 @@ public class ArticleController {
         return acticleEntity;
     }
 
-
+    //查找所有文章
     @GetMapping("/getarticlelist")
     public List<ArticleEntity> getArticlelist(){
         List<ArticleEntity> list = new ArrayList<>();
