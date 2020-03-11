@@ -1,5 +1,7 @@
 package com.wang.blog.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wang.blog.dao.ArticleMapper;
 import com.wang.blog.entity.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,13 @@ public class ArticleService {
 
     public List<ArticleEntity> getAll() {
         List<ArticleEntity> allArticle = articleMapper.getAllArticle();
-        return  allArticle;
+        return allArticle;
     }
+
+    public PageInfo<ArticleEntity> findAll(int currentPage, int pageSize) {
+        PageHelper.startPage(currentPage, pageSize);
+        List<ArticleEntity> list = articleMapper.findAll();
+        return new PageInfo<ArticleEntity>(list);
+    }
+
 }
