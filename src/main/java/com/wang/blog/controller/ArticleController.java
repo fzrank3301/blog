@@ -9,12 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -33,8 +37,9 @@ public class ArticleController {
 
         acticleEntity = articleService.getarticlebyid(id);
 
-        logger.info(getTime() + "   id： " + id.toString());
-
+        logger.info(Util.getTime() + "   id： " + id.toString());
+        String uuid = UUID.randomUUID().toString();
+        logger.info(Util.getTime() + "   UUID： " + uuid);
         return acticleEntity;
 
     }
@@ -57,13 +62,5 @@ public class ArticleController {
         return all;
     }
 
-
-    //得到当前时间并格式化
-    private static String getTime() {
-        Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String time = ft.format(date).toString();
-        return time;
-    }
 
 }

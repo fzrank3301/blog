@@ -3,16 +3,44 @@
 
 <mapper namespace="com.wang.blog.dao.ArticleMapper">
 
-    <select id="getArticleById" parameterType="Integer" resultType="com.wang.blog.entity.ArticleEntity">
-        select  *  from article  where id = #{id}
+    <select id="getArticleById" parameterType="Integer" resultMap="ArticleAntity">
+        select  article.*,authorinfo.*
+        from article,authorinfo
+        where article.authorid = authorinfo.authorid and article.id = #{id}
     </select>
 
-    <select id="getAllArticle" resultType="com.wang.blog.entity.ArticleEntity">
-        select  * from  article
+    <!--    <select id="getAllArticle" resultType="com.wang.blog.entity.ArticleEntity">-->
+    <!--        select  * from  article-->
+    <!--    </select>-->
+
+    <select id="getAllArticle" resultMap="ArticleAntity">
+            select  article.*,authorinfo.*
+        from article,authorinfo
     </select>
+
 
     <select id="findAll" resultType="com.wang.blog.entity.ArticleEntity">
         select * from  article
     </select>
+
+
+    <resultMap id="ArticleAntity" type="com.wang.blog.entity.ArticleEntity">
+        <id column="id" property="id"></id>
+        <result column="title" property="title"></result>
+        <result column="author" property="author"></result>
+        <result column="context" property="context"></result>
+        <result column="likecount" property="likecount"></result>
+        <result column="createtime" property="createtime"></result>
+        <result column="authorid" property="authorid"></result>
+        <result column="fullcontext" property="fullcontext"></result>
+        <association property="authorEntity" javaType="com.wang.blog.entity.AuthorEntity">
+            <id column="authorid" property="authorid"></id>
+            <result column="name" property="name"></result>
+            <result column="country" property="country"></result>
+            <result column="borntime" property="borntime"></result>
+            <result column="deadtime" property="deadtime"></result>
+            <result column="UUID" property="UUID"></result>
+        </association>
+    </resultMap>
 
 </mapper>
