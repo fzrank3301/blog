@@ -3,24 +3,30 @@
 
 <mapper namespace="com.wang.blog.dao.ArticleMapper">
 
+    <insert id="addarticle">
+        insert  into
+        article (id,author,title,context,fullcontext,createtime,authorid)
+        value (id,#{author},#{title},#{context},#{fullcontext},#{createtime},#{authorid})
+    </insert>
+
+    <!--    根据id查找文章-->
     <select id="getArticleById" parameterType="Integer" resultMap="ArticleAntity">
         select  article.*,authorinfo.*
         from article,authorinfo
         where article.authorid = authorinfo.authorid and article.id = #{id}
     </select>
 
-    <!--    <select id="getAllArticle" resultType="com.wang.blog.entity.ArticleEntity">-->
-    <!--        select  * from  article-->
-    <!--    </select>-->
-
+    <!--    查找全部文章-->
     <select id="getAllArticle" resultMap="ArticleAntity">
             select  article.*,authorinfo.*
         from article,authorinfo
     </select>
 
 
-    <select id="findAll" resultType="com.wang.blog.entity.ArticleEntity">
-        select * from  article
+    <!--    分页插件-->
+    <select id="findAll" resultMap="ArticleAntity">
+        select  article.*,authorinfo.*
+        from article,authorinfo
     </select>
 
 

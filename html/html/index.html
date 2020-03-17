@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<title>闲言轻博客</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="../res/layui/css/layui.css">
-		<link rel="stylesheet" href="../res/static/css/mian.css">
-		<script src="../res/static/js/vue.js"></script>
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	</head>
+        <meta charset="UTF-8">
+        <title>闲言轻博客</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../res/layui/css/layui.css">
+        <link rel="stylesheet" href="../res/static/css/mian.css">
+        <script src="../res/static/js/lib/vue.js"></script>
+        <script src="../res/static/js/lib/vue-router.js"></script>
+        <script src="../res/static/js/lib/axios.min.js"></script>
+    </head>
 	<body class="lay-blog">
 		<div class="header">
 			<div class="header-wrap">
@@ -49,22 +50,22 @@
 			</ul>
 		</div>
 		<div class="container-wrap">
-			<div class="container" id="contaier">
-				<div class="contar-wrap" >
-					<h4 class="item-title">
-						<p><i class="layui-icon layui-icon-speaker"></i>公告：<span>欢迎来到我的轻博客</span></p>
-					</h4>				
-					<div class="item"  v-for="art in article">
-						<div class="item-box  layer-photos-demo1 layer-photos-demo">
-							<h3><a href="details.html">{{art.title}}</a></h3>
-							<h5>发布于：<span>刚刚</span></h5>
-							<p>{{art.context}}</p>
-							<img src="../res/static/images/item.png" alt="">
-						</div>
-						<div class="comment count">
-							<a href="details.html#comment">评论</a>
-							<a href="javascript:;" class="like">点赞</a>
-						</div>
+            <div class="container" id="contaier">
+                <div class="contar-wrap">
+                    <h4 class="item-title">
+                        <p><i class="layui-icon layui-icon-speaker"></i>公告：<span>欢迎来到我的轻博客</span></p>
+                    </h4>
+                    <div class="item" v-if="article" v-for="art in article">
+                        <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                            <h3><a v-bind:href="url + art.id">{{art.title}}</a></h3>
+                            <h5>发布于：<span>{{art.createtime}}</span></h5>
+                            <p>{{art.context}}</p>
+                            <img src="../res/static/images/item.png" alt="">
+                        </div>
+                        <div class="comment count">
+                            <a href="details.html#comment">评论</a>
+                            <a href="javascript:;" class="like">点赞</a>
+                        </div>
 					</div>
 				</div>
 				<div class="item-btn">
@@ -91,18 +92,22 @@
 			var container = new Vue({
 				el: "#contaier",
 				data: {
-					article: null
-				},
-				mounted: function() {
-					axios.get('http://localhost:6324/article/getarticlelist')
-						.then((response) =>{
-							this.article = response.data,
-							console.log(this.article)
-						}).catch((err) => console.log(err))
-				}
-			})
-		</script>
+                    article: null,
+                    url: "details.html?id="
+                },
+                mounted: function () {
+                    axios.get('http://localhost:6324/article/getarticlelist')
+                        .then((response) => {
+                            this.article = response.data
+                        }).catch((err) => console.log(err))
+                }
+            })
+        </script>
+
+        <script>
 
 
-	</body>
+        </script>
+
+    </body>
 </html>

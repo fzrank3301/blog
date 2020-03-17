@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wang.blog.dao.AuthorMapper">
+    <insert id="addAuthor">
+        insert into authorinfo (authorid,name) values (authorid,#{name})
+    </insert>
+
+
+    <select id="findbyAuthorName" resultType="com.wang.blog.entity.AuthorEntity">
+        select * from authorinfo where name = #{name}
+    </select>
+
+</mapper>

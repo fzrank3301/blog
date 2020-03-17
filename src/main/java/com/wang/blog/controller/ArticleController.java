@@ -4,10 +4,13 @@ package com.wang.blog.controller;
 import com.github.pagehelper.PageInfo;
 import com.wang.blog.entity.ArticleEntity;
 import com.wang.blog.dao.ArticleMapper;
+import com.wang.blog.entity.AuthorEntity;
 import com.wang.blog.service.ArticleService;
+import com.wang.blog.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +33,9 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
+    @Autowired
+    private AuthorService authorService;
+
     //按id查找文章
     @GetMapping("/getacticlebyid")
     public ArticleEntity getArticleById(@RequestParam(value = "id", defaultValue = "1") Integer id) {
@@ -38,8 +44,6 @@ public class ArticleController {
         acticleEntity = articleService.getarticlebyid(id);
 
         logger.info(Util.getTime() + "   id： " + id.toString());
-        String uuid = UUID.randomUUID().toString();
-        logger.info(Util.getTime() + "   UUID： " + uuid);
         return acticleEntity;
 
     }
@@ -54,6 +58,7 @@ public class ArticleController {
         return list;
     }
 
+
     //分页查询
     @GetMapping("/findAll")
     public PageInfo<ArticleEntity> findAll(@RequestParam(value = "page", defaultValue = "2") int currentPage,
@@ -62,5 +67,24 @@ public class ArticleController {
         return all;
     }
 
+    @PostMapping("/addarticle")
+    public String addarticle(@RequestParam(value = "author") String author,
+                             @RequestParam(value = "title") String title,
+                             @RequestParam(value = "fullcontext") String fullcontext,
+                             @RequestParam(value = "context") String context) {
 
+        //判断是否存在，存在找出id，不存在创建后
+        boolean exist = authorService.isName(author);
+        if (exist) {
+
+        } else {
+            authorService.addAuthor(author);
+        }
+
+        Integer authorid = authorService.findbyAuthorName(author).getAuthorid();
+        String time = Util.getTime();
+        articleService.addarticle(author, title, fullcontext, context, time, authorid);
+        logger.info("插入了一篇文章  " + title);
+        return "插入成功！";
+    }
 }
