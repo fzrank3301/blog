@@ -1,9 +1,9 @@
-package com.wang.blog.controller;
+package com.wang.blog.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Util {
+public class TimeUtil {
 
     //得到当前时间并格式化
     public static String getTime() {

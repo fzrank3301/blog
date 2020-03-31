@@ -3,25 +3,17 @@ package com.wang.blog.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.wang.blog.entity.ArticleEntity;
-import com.wang.blog.dao.ArticleMapper;
-import com.wang.blog.entity.AuthorEntity;
 import com.wang.blog.service.ArticleService;
 import com.wang.blog.service.AuthorService;
+import com.wang.blog.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Description;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -43,7 +35,7 @@ public class ArticleController {
 
         acticleEntity = articleService.getarticlebyid(id);
 
-        logger.info(Util.getTime() + "   id： " + id.toString());
+        logger.info(TimeUtil.getTime() + "   id： " + id.toString());
         return acticleEntity;
 
     }
@@ -82,7 +74,7 @@ public class ArticleController {
         }
 
         Integer authorid = authorService.findbyAuthorName(author).getAuthorid();
-        String time = Util.getTime();
+        String time = TimeUtil.getTime();
         articleService.addarticle(author, title, fullcontext, context, time, authorid);
         logger.info("插入了一篇文章  " + title);
         return "插入成功！";

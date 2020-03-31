@@ -1,6 +1,7 @@
 package com.wang.blog.controller;
 
 
+import com.wang.blog.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 
 @RestController
 @CrossOrigin
@@ -36,7 +36,7 @@ public class FileController {
 
         try {
             file.transferTo(dest);
-            logger.info(Util.getTime() + "  " + filename + "  上传成功");
+            logger.info(TimeUtil.getTime() + "  " + filename + "  上传成功");
             return "上传成功！";
         } catch (IOException e) {
             e.printStackTrace();

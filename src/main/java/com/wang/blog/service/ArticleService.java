@@ -39,4 +39,6 @@ public class ArticleService {
     public void addarticle(String author, String title, String fullcontext, String context, String createtime, Integer authorid) {
         articleMapper.addarticle(author, title, fullcontext, context, createtime, authorid);
     }
+
+
 }
